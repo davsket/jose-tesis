@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<title>Test Jose</title>
+<style>
+	li{
+		list-style: none;
+		float: left;
+		margin: 10px;
+		width: 200px;
+	}
+	li img{
+		cursor: pointer;
+	}
+</style>
+<ul class="img-container">
+	<li>
+		<img src="http://placekitten.com/g/200/300" data-name="cat-one">
+		<p></p>
+	</li>
+	<li>
+		<img src="http://placekitten.com/g/200/300" data-name="cat-two">
+		<p></p>
+	</li>
+	<li>
+		<img src="http://placekitten.com/g/200/300" data-name="cat-three">
+		<p></p>
+	</li>
+
+</ul>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	console.log($('.img-container'))
+	$('.img-container').on('click', 'img', function(){
+		var img = this,
+			name = img.getAttribute('data-name')
+	
+		$(img).next().html( 'loading..' )
+	
+		$.ajax({
+			dataType: 'jsonp',
+			url: 'http://omg.monoku.com:8001/login/',
+			data: {
+				password: 'estoEsRelleno',
+				username: 'esSoloParaQueRespondaJSONP',
+				name: name
+			}
+		})
+		.done(function( data ){
+			$(img).next().html( data.message + 'for: ' + name )
+		})
+	})
+</script>
